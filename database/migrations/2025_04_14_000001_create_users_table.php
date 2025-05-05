@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamps();
         });
     }
-
+a
     public function down(): void
     {
         Schema::dropIfExists('users');

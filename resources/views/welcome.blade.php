@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,10 +41,9 @@
         </div>
         <!-- Spinner End -->
 
-
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <a href="index.html" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+            <a href="/" class="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 class="m-0 text-primary">Ishakiro Job</h1>
             </a>
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -53,17 +51,88 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <a href="index.html" class="nav-item nav-link active">Home</a>
+                    <a href="/" class="nav-item nav-link active">Home</a>
                     <a href="about.html" class="nav-item nav-link">About</a>
                     <a href="about.html" class="nav-item nav-link">All Jobs</a>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
-                    <a href="contact.html" class="nav-item nav-link">login/register</a>
+                    <button class="nav-item nav-link btn btn-link" data-bs-toggle="modal" data-bs-target="#authModal">Login/Register</button>
                 </div>
-                
             </div>
         </nav>
         <!-- Navbar End -->
 
+        <!-- Auth Modal Start -->
+        <div class="modal fade" id="authModal" tabindex="-1" aria-labelledby="authModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="authModalLabel">Login or Register</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs mb-3" id="authTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link active" id="login-tab" data-bs-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <a class="nav-link" id="register-tab" data-bs-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content" id="authTabContent">
+                            <!-- Login Form -->
+                            <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="loginEmail" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="loginEmail" name="email" value="{{ old('email') }}" required>
+                                        @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="loginPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="loginPassword" name="password" required>
+                                        @error('password') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Login</button>
+                                </form>
+                            </div>
+                            <!-- Register Form -->
+                            <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                                <form method="POST" action="{{ route('register') }}">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label for="registerName" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="registerName" name="name" value="{{ old('name') }}" required>
+                                        @error('name') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="registerEmail" class="form-label">Email address</label>
+                                        <input type="email" class="form-control" id="registerEmail" name="email" value="{{ old('email') }}" required>
+                                        @error('email') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="registerPhone" class="form-label">Phone</label>
+                                        <input type="text" class="form-control" id="registerPhone" name="phone" value="{{ old('phone') }}" required>
+                                        @error('phone') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="registerPassword" class="form-label">Password</label>
+                                        <input type="password" class="form-control" id="registerPassword" name="password" required>
+                                        @error('password') <span class="text-danger small">{{ $message }}</span> @enderror
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Auth Modal End -->
 
         <!-- Carousel Start -->
         <div class="container-fluid p-0">
@@ -95,7 +164,8 @@
                 </div>
             </div>
         </div>
-        
+        <!-- Carousel End -->
+
         <!-- Jobs Start -->
         <div class="container-xxl py-5">
             <div class="container">
@@ -285,7 +355,7 @@
                             </div>
                             <div class="job-item p-4 mb-4">
                                 <div class="row g-4">
-                                    <div class="col-sm-12 col-md-8 d-flex align-items-center">
+                                    <div class="col-sm-12 col-md-8 d-flex align-items-center PROFESSIONAL EXPERIENCE
                                         <img class="flex-shrink-0 img-fluid border rounded" src="img/com-logo-4.jpg" alt="" style="width: 80px; height: 80px;">
                                         <div class="text-start ps-4">
                                             <h5 class="mb-3">Creative Director</h5>
@@ -434,10 +504,10 @@
         </div>
         <!-- Jobs End -->
 
-         <!-- Category Start -->
-         <div class="container-xxl py-5">
+        <!-- Category Start -->
+        <div class="container-xxl py-5">
             <div class="container">
-                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Search Job By Departement</h1>
+                <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s">Search Job By Department</h1>
                 <div class="row g-4">
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
                         <a class="cat-item rounded p-4" href="">
@@ -456,14 +526,14 @@
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-user-tie text-primary mb-4"></i>
-                            <h6 class="mb-3">It Deprtment</h6>
+                            <h6 class="mb-3">IT Department</h6>
                             <p class="mb-0">123 Vacancy</p>
                         </a>
                     </div>
                     <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
                         <a class="cat-item rounded p-4" href="">
                             <i class="fa fa-3x fa-tasks text-primary mb-4"></i>
-                            <h6 class="mb-3"> Law Department</h6>
+                            <h6 class="mb-3">Law Department</h6>
                             <p class="mb-0">123 Vacancy</p>
                         </a>
                     </div>
@@ -546,17 +616,15 @@
                 <div class="copyright">
                     <div class="row">
                         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                            &copy; <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
-							
-							<!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-							Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
+                            © <a class="border-bottom" href="#">Your Site Name</a>, All Right Reserved. 
+                            Designed By <a class="border-bottom" href="https://htmlcodex.com">HTML Codex</a>
                         </div>
                         <div class="col-md-6 text-center text-md-end">
                             <div class="footer-menu">
                                 <a href="">Home</a>
                                 <a href="">Cookies</a>
                                 <a href="">Help</a>
-                                <a href="">FQAs</a>
+                                <a href="">FAQs</a>
                             </div>
                         </div>
                     </div>
@@ -564,7 +632,6 @@
             </div>
         </div>
         <!-- Footer End -->
-
 
         <!-- Back to Top -->
         <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
@@ -580,6 +647,20 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+
+    <!-- Modal Initialization Script -->
+    <script>
+        $(document).ready(function() {
+            // Ensure modal is initialized
+            $('#authModal').modal({ show: false });
+            
+            // Debug: Log when button is clicked
+            $('[data-bs-target="#authModal"]').on('click', function() {
+                console.log('Login/Register button clicked');
+                $('#authModal').modal('show');
+            });
+        });
+    </script>
 </body>
 
 </html>
